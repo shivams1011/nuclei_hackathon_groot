@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 ListTile(
                   onTap: () {
-                     Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                     Navigator.of(context).pushNamed('/goalTracker');
                   },
                   title: Text(
@@ -136,10 +136,15 @@ class _HomeScreenState extends State<HomeScreen> {
                         title: 'Create a goal',
                         subTitle: ''),
                   ),
-                  showTransationCard(
-                      cardColor: ColorsUtil.fieldFillColor,
-                      title: 'Save/Invest',
-                      subTitle: ''),
+                  InkWell(
+                    onTap: () {
+                       Navigator.of(context).pushNamed('/saveInvest');
+                    },
+                    child: showTransationCard(
+                        cardColor: ColorsUtil.fieldFillColor,
+                        title: 'Save/Invest',
+                        subTitle: ''),
+                  ),
                 ],
               ),
               SizedBox(
