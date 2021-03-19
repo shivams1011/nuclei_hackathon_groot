@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
+        key: _scaffoldKey,
         backgroundColor: Color(ColorsUtil.appBgColor),
         endDrawer: Drawer(
           child: Container(
@@ -45,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: () {
                     Navigator.of(context).pop();
                     Navigator.of(context).pushNamed('/transaction');
-                    
                   },
                   title: Text(
                     'Transaction History',
@@ -118,10 +117,15 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  showTransationCard(
-                      cardColor: ColorsUtil.fieldFillColor,
-                      title: 'Create a goal',
-                      subTitle: ''),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/createGoal');
+                    },
+                    child: showTransationCard(
+                        cardColor: ColorsUtil.fieldFillColor,
+                        title: 'Create a goal',
+                        subTitle: ''),
+                  ),
                   showTransationCard(
                       cardColor: ColorsUtil.fieldFillColor,
                       title: 'Save/Invest',
@@ -194,10 +198,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget showTransationCard(
-      {@required int cardColor,
-      @required String title,
-      @required String subTitle}) {
+  Widget showTransationCard({
+    @required int cardColor,
+    @required String title,
+    @required String subTitle,
+  }) {
     return Card(
       color: Color(cardColor),
       elevation: 5,
