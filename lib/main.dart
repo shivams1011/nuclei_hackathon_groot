@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nuclei_hackathon_groot/screen/home_screen/home_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/login_screen/login_screen.dart';
+import 'package:nuclei_hackathon_groot/screen/transaction_screen/transaction_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/':(context)=> LoginScreen(),
         '/home':(cotext) =>HomeScreen(),
+        '/transaction':(context) => TransactionScreen(),
       },
     );
   }
