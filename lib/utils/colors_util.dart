@@ -6,4 +6,6 @@ class ColorsUtil{
 
     static int get buttonColor => 0xffFF9B59;
 
+    static int get accountCardColor =>0xffEF476F;
+
 }
