@@ -34,7 +34,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                     Navigator.of(context).pop();
+                    Navigator.of(context).pushNamed('/goalTracker');
+                  },
                   title: Text(
                     'Goal Tracker',
                     style: FontUtil.setTextStyle(
@@ -48,6 +51,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                   title: Text(
                     'Transaction History',
+                    style: FontUtil.setTextStyle(
+                        fontSize: 16.0, fontWeight: FontWeight.w700),
+                  ),
+                ),
+                ListTile(
+                  title: Text(
+                    'Manage limit',
                     style: FontUtil.setTextStyle(
                         fontSize: 16.0, fontWeight: FontWeight.w700),
                   ),

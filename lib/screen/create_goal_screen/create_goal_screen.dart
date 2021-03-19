@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nuclei_hackathon_groot/screen/goal_overview_screen/goal_overview_screen.dart';
 import 'package:nuclei_hackathon_groot/utils/colors_util.dart';
 import 'package:nuclei_hackathon_groot/utils/font_util.dart';
 import 'package:nuclei_hackathon_groot/utils/image_util.dart';
@@ -38,7 +39,6 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        
         children: [
           SizedBox(
             height: 100,
@@ -96,12 +96,12 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
               ),
             ),
           ),
-
-          
           SizedBox(height: 20),
-          Text('Select Image from Gallery', style:  FontUtil.setTextStyle(
-            fontSize: 24.0, fontWeight: FontWeight.w800
-          ),),
+          Text(
+            'Select Image from Gallery',
+            style: FontUtil.setTextStyle(
+                fontSize: 24.0, fontWeight: FontWeight.w800),
+          ),
           SizedBox(height: 20),
           InkWell(
             onTap: () {
@@ -121,14 +121,21 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
                             width: 50,
                           ).image
                         : Image.file(_image).image,
-                    fit: _image == null? null: BoxFit.fill,
+                    fit: _image == null ? null : BoxFit.fill,
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20.0))),
             ),
           ),
-
           Expanded(child: Container()),
-          getBottomButton()
+          InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed('/goalOverView',
+                    arguments: GoalOverViewScreenArgs(
+                        path: _image != null ? _image.path : '',
+                        amount: '2000',
+                        goalName: 'Bicycle'));
+              },
+              child: getBottomButton())
         ],
       ),
     );
@@ -146,7 +153,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
     });
   }
 
- Widget getBottomButton() {
+  Widget getBottomButton() {
     return Card(
       color: Color(ColorsUtil.fieldFillColor),
       elevation: 5,
@@ -182,5 +189,4 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
       ),
     );
   }
-
 }
