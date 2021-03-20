@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
           width: MediaQuery.of(context).size.width * 0.50,
           child: ElevatedButton(
             onPressed: () {
-              // Navigator.of(context).pushNamed('/home');
+              Navigator.of(context).pushNamed('/home');
 
               print(customerIdController.text);
               print(passwordController.text);

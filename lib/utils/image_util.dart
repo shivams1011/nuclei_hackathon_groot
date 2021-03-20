@@ -10,4 +10,10 @@ class ImageUtils {
   static String get byCicleImage => 'assets/images/bycicle.png';
 
   static String get smartPhoneImage => 'assets/images/smartphone.png';
+
+  static String get uploadImage => 'assets/images/upload_image.png';
+
+  static String get photosImage => 'assets/images/photos.jpg';
+
+  static String get cameraImage => 'assets/images/camera.png';
 }
