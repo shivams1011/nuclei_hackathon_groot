@@ -239,7 +239,11 @@ class _SaveInvestScreenState extends State<SaveInvestScreen> {
             ),
           ),
           Expanded(child: Container()),
-          getBottomButton()
+          InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed('/depositScreen');
+              },
+              child: getBottomButton())
         ],
       ),
     );

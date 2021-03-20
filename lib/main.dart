@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nuclei_hackathon_groot/screen/create_goal_screen/create_goal_screen.dart';
+import 'package:nuclei_hackathon_groot/screen/deposit_screen/deposit_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/goal_overview_screen/goal_overview_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/goal_tracker_screen/goal_tracker_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/home_screen/home_screen.dart';
@@ -41,7 +42,8 @@ class MyApp extends StatelessWidget {
         '/goalTracker':(context) => GoalTrackerScreen(),
         '/saveInvest':(context) => SaveInvestScreen(),
         '/myAccount':(context) => MyAccountScreen(),
-        '/payment':(context) => UpiPaymentScreen()
+        '/payment':(context) => UpiPaymentScreen(),
+         '/depositScreen':(context) => DepositScreen()
       },
     );
   }

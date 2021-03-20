@@ -35,7 +35,7 @@ class _GoalTrackerScreenState extends State<GoalTrackerScreen> {
       child: Column(
         children: [
           getCardData(ImageUtils.carImage, 'Car'),
-          getCardData(ImageUtils.byCicleImage, 'Bycicle'),
+          getCardData(ImageUtils.byCicleImage, 'Bicycle'),
           getCardData(ImageUtils.smartPhoneImage, 'Smart Phone'),
 
         ],
