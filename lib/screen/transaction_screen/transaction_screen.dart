@@ -103,7 +103,7 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           'Success',
                           style: FontUtil.setTextStyle(
                               fontSize: 16.0,
-                              fontColor: Color(0xff2FADAC),
+                              fontColor: Colors.green,
                               fontWeight: FontWeight.bold),
                         ),
                       ],

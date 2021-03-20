@@ -138,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   InkWell(
                     onTap: () {
-                       Navigator.of(context).pushNamed('/saveInvest');
+                      Navigator.of(context).pushNamed('/saveInvest');
                     },
                     child: showTransationCard(
                         cardColor: ColorsUtil.fieldFillColor,
@@ -153,24 +153,21 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  showTransationCard(
-                      cardColor: ColorsUtil.fieldFillColor,
-                      title: 'My Account',
-                      subTitle: ''),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).pushNamed('/myAccount');
+                    },
+                    child: showTransationCard(
+                        cardColor: ColorsUtil.fieldFillColor,
+                        title: 'My Account',
+                        subTitle: ''),
+                  ),
                   showTransationCard(
                       cardColor: ColorsUtil.fieldFillColor,
                       title: 'Payment/Transfer',
                       subTitle: ''),
                 ],
               ),
-              SizedBox(
-                height: 20.0,
-              ),
-              showTransationCard(
-                  cardColor: ColorsUtil.fieldFillColor,
-                  title: 'Manage Limit',
-                  subTitle: ''),
-              Expanded(child: Container()),
             ],
           ),
         ));
@@ -348,7 +345,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10.0,
                             ),
                             Text(
-                              'Today\'s Limit:- ₹1,000',
+                              'Amount limit:- ₹1,000',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: FontUtil.setTextStyle(
@@ -360,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10.0,
                             ),
                             Text(
-                              'Available Limit:- ₹500',
+                              'Amount spent:- ₹500',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: FontUtil.setTextStyle(

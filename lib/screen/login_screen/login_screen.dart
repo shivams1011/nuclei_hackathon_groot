@@ -28,9 +28,9 @@ class _LoginScreenState extends State<LoginScreen> {
       child: Column(
         children: [
           Text(
-            'Welcome to \nGroot',
+            'Wings',
             style: FontUtil.setTextStyle(
-              fontSize: 24.0,
+              fontSize: 28.0,
             ),
             textAlign: TextAlign.center,
           ),

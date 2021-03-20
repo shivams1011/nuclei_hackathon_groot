@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:nuclei_hackathon_groot/utils/colors_util.dart';
 import 'package:nuclei_hackathon_groot/utils/font_util.dart';
 
@@ -17,6 +18,7 @@ class _SaveInvestScreenState extends State<SaveInvestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color(ColorsUtil.appBgColor),
       appBar: AppBar(
         elevation: 0,
@@ -34,8 +36,39 @@ class _SaveInvestScreenState extends State<SaveInvestScreen> {
     return Container(
       padding: EdgeInsets.all(18.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          TextFormField(
+            autofocus: false,
+            cursorHeight: 18.0,
+            cursorColor: Colors.white,
+            style: FontUtil.setTextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 18.0,
+                fontColor: Colors.white),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.digitsOnly
+            ],
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color(ColorsUtil.fieldFillColor),
+              contentPadding: EdgeInsets.all(18.0),
+              hintText: 'Amount',
+              hintStyle: FontUtil.setTextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                  fontColor: Colors.white38),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(18)),
+                borderSide: BorderSide.none,
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
           InkWell(
             onTap: () {
               _showDepositSheet();
@@ -87,6 +120,10 @@ class _SaveInvestScreenState extends State<SaveInvestScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
                       fontColor: Colors.white),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Color(ColorsUtil.fieldFillColor),
@@ -113,6 +150,10 @@ class _SaveInvestScreenState extends State<SaveInvestScreen> {
                       fontWeight: FontWeight.bold,
                       fontSize: 18.0,
                       fontColor: Colors.white),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Color(ColorsUtil.fieldFillColor),

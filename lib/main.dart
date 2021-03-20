@@ -4,6 +4,7 @@ import 'package:nuclei_hackathon_groot/screen/goal_overview_screen/goal_overview
 import 'package:nuclei_hackathon_groot/screen/goal_tracker_screen/goal_tracker_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/home_screen/home_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/login_screen/login_screen.dart';
+import 'package:nuclei_hackathon_groot/screen/my_account_screen/my_account_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/save_invest_screen/save_invest_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/transaction_screen/transaction_screen.dart';
 
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         '/createGoal':(context) => CreateGoalScreen(),
         '/goalOverView':(context) => GoalOverViewScreen(),
         '/goalTracker':(context) => GoalTrackerScreen(),
-        '/saveInvest':(context) => SaveInvestScreen()
+        '/saveInvest':(context) => SaveInvestScreen(),
+        '/myAccount':(context) => MyAccountScreen()
       },
     );
   }
