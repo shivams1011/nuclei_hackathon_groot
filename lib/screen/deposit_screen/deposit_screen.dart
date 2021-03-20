@@ -10,8 +10,7 @@ class DepositScreen extends StatefulWidget {
 }
 
 class _DepositScreenState extends State<DepositScreen> {
-
-TextEditingController goalSelectController = TextEditingController();
+  TextEditingController goalSelectController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,6 @@ TextEditingController goalSelectController = TextEditingController();
           SizedBox(
             height: 30.0,
           ),
-
           InkWell(
             onTap: () {
               _showInterestSheet();
@@ -86,14 +84,15 @@ TextEditingController goalSelectController = TextEditingController();
             ),
           ),
           Expanded(child: Container()),
-
-          getBottomButton()
+          InkWell(onTap: () {
+             Navigator.of(context).pushNamed('/goalTracker');
+          }, child: getBottomButton())
         ],
       ),
     );
   }
 
-void _showInterestSheet() async {
+  void _showInterestSheet() async {
     String data = await showModalBottomSheet(
         context: context,
         isScrollControlled: false,
@@ -101,7 +100,7 @@ void _showInterestSheet() async {
         backgroundColor: Color(ColorsUtil.appBgColor),
         builder: (builder) {
           return Container(
-            height: MediaQuery.of(context).size.height * 0.30,
+            height: MediaQuery.of(context).size.height * 0.33,
             padding: EdgeInsets.all(24.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,7 +147,21 @@ void _showInterestSheet() async {
                     color: Colors.white,
                   ),
                 ),
-                
+                ListTile(
+                  onTap: () {
+                    Navigator.of(context).pop('Smart Phone');
+                  },
+                  title: Text(
+                    'Smart Phone',
+                    style: FontUtil.setTextStyle(
+                      fontSize: 20.0,
+                    ),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
           );
@@ -161,7 +174,7 @@ void _showInterestSheet() async {
     });
   }
 
- Widget getBottomButton() {
+  Widget getBottomButton() {
     return Card(
       color: Color(ColorsUtil.fieldFillColor),
       elevation: 5,
@@ -198,4 +211,5 @@ void _showInterestSheet() async {
     );
   }
 
+  
 }
