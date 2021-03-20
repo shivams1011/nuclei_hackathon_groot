@@ -250,6 +250,7 @@ class _SaveInvestScreenState extends State<SaveInvestScreen> {
   }
 
   void _showDepositSheet() async {
+    FocusScope.of(context).requestFocus(new FocusNode());
     String data = await showModalBottomSheet(
         context: context,
         isScrollControlled: false,
@@ -317,6 +318,7 @@ class _SaveInvestScreenState extends State<SaveInvestScreen> {
   }
 
   void _showInterestSheet() async {
+    FocusScope.of(context).requestFocus(new FocusNode());
     String data = await showModalBottomSheet(
         context: context,
         isScrollControlled: false,
@@ -414,6 +416,7 @@ class _SaveInvestScreenState extends State<SaveInvestScreen> {
   }
 
   void _showMaturitySheet() async {
+    FocusScope.of(context).requestFocus(new FocusNode());
     String data = await showModalBottomSheet(
         context: context,
         isScrollControlled: false,
