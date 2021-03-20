@@ -20,6 +20,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
   final picker = ImagePicker();
   TextEditingController goalNameController = TextEditingController();
   TextEditingController goalAmountController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -41,106 +42,109 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
   Widget getBodyWidget() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 100,
-          ),
-          TextFormField(
-            controller: goalNameController,
-            autofocus: false,
-            cursorHeight: 18.0,
-            cursorColor: Colors.white,
-            style: FontUtil.setTextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-                fontColor: Colors.white),
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Color(ColorsUtil.fieldFillColor),
-              contentPadding: EdgeInsets.all(18.0),
-              hintText: 'Name',
-              hintStyle: FontUtil.setTextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                  fontColor: Colors.white38),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(18)),
-                borderSide: BorderSide.none,
-              ),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 100,
             ),
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            controller: goalAmountController,
-            autofocus: false,
-            cursorHeight: 18.0,
-            cursorColor: Colors.white,
-            style: FontUtil.setTextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 18.0,
-                fontColor: Colors.white),
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-              FilteringTextInputFormatter.digitsOnly
-            ], // Only numbers can be entered
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Color(ColorsUtil.fieldFillColor),
-              contentPadding: EdgeInsets.all(18.0),
-              hintText: 'Goal Amount',
-              hintStyle: FontUtil.setTextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18.0,
-                  fontColor: Colors.white38),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(18)),
-                borderSide: BorderSide.none,
-              ),
-            ),
-          ),
-          SizedBox(height: 20),
-          _image == null
-              ? Image.asset(
-                  ImageUtils.uploadImage,
-                  height: 100,
-                  width: 100,
-                  color: Colors.white,
-                )
-              : Image.file(
-                  _image,
-                  height: 200,
-                  width: 300,
-                  fit: BoxFit.fitWidth,
-                ),
-          SizedBox(height: 20),
-          InkWell(
-            onTap: () {
-              // getImage();
-              _showSheet();
-            },
-            child: Text(
-              'Upload Image here',
+            TextFormField(
+              controller: goalNameController,
+              autofocus: false,
+              cursorHeight: 18.0,
+              cursorColor: Colors.white,
+              validator: (value) =>
+                  value.isEmpty ? 'Please Enter Goal Name' : null,
               style: FontUtil.setTextStyle(
-                  decoration: TextDecoration.underline,
-                  fontSize: 24.0,
-                  fontWeight: FontWeight.w800),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                  fontColor: Colors.white),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Color(ColorsUtil.fieldFillColor),
+                contentPadding: EdgeInsets.all(18.0),
+                hintText: 'Name',
+                hintStyle: FontUtil.setTextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                    fontColor: Colors.white38),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                  borderSide: BorderSide.none,
+                ),
+              ),
             ),
-          ),
-          SizedBox(height: 20),
-          Expanded(child: Container()),
-          InkWell(
+            SizedBox(
+              height: 20.0,
+            ),
+            TextFormField(
+              controller: goalAmountController,
+              autofocus: false,
+              cursorHeight: 18.0,
+              cursorColor: Colors.white,
+              validator: (value) =>
+                  value.isEmpty ? 'Please Enter Goal Amount' : null,
+              style: FontUtil.setTextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                  fontColor: Colors.white),
+              keyboardType: TextInputType.number,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly
+              ], // Only numbers can be entered
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Color(ColorsUtil.fieldFillColor),
+                contentPadding: EdgeInsets.all(18.0),
+                hintText: 'Goal Amount',
+                hintStyle: FontUtil.setTextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18.0,
+                    fontColor: Colors.white38),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(18)),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+            ),
+            SizedBox(height: 20),
+            _image == null
+                ? Image.asset(
+                    ImageUtils.uploadImage,
+                    height: 50,
+                    width: 50,
+                    color: Colors.white,
+                  )
+                : Image.file(
+                    _image,
+                    height: 200,
+                    width: 300,
+                    fit: BoxFit.fitWidth,
+                  ),
+            SizedBox(height: 20),
+            InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed('/goalOverView',
-                    arguments: GoalOverViewScreenArgs(
-                        path: _image != null ? _image.path : '',
-                        amount: goalAmountController.text,
-                        goalName: goalNameController.text));
+                // getImage();
+                _showSheet();
               },
-              child: getBottomButton())
-        ],
+              child: Text(
+                'Upload Image here',
+                style: FontUtil.setTextStyle(
+                    decoration: TextDecoration.underline,
+                    fontSize: 24.0,
+                    fontWeight: FontWeight.w800),
+              ),
+            ),
+            SizedBox(height: 20),
+            Expanded(child: Container()),
+            InkWell(
+                onTap: () {
+                  validateAndSave();
+                },
+                child: getBottomButton())
+          ],
+        ),
       ),
     );
   }
@@ -251,5 +255,19 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
         ),
       ),
     );
+  }
+
+  void validateAndSave() {
+    final FormState form = _formKey.currentState;
+    if (form.validate()) {
+      FocusScope.of(context).requestFocus(new FocusNode());
+       Navigator.of(context).pushNamed('/goalOverView',
+                      arguments: GoalOverViewScreenArgs(
+                          path: _image != null ? _image.path : '',
+                          amount: goalAmountController.text,
+                          goalName: goalNameController.text));
+    } else {
+      print('Form is invalid');
+    }
   }
 }

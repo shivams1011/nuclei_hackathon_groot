@@ -41,7 +41,7 @@ class LoginScreenProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         final LoginResponse item = LoginResponse.fromJson(jsonDecode(response.body));
 
-        print(item.account.accountNumber);
+        print(item.account.status);
         loginSuccess = true;
 
         loginResposne = item;

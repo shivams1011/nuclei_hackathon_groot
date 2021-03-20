@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:nuclei_hackathon_groot/model/login_response.dart';
 import 'package:nuclei_hackathon_groot/screen/home_screen/home_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/login_screen/view_model/login_screen_provider.dart';
 import 'package:nuclei_hackathon_groot/utils/colors_util.dart';
@@ -18,13 +15,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController customerIdController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
     Provider.of<LoginScreenProvider>(context, listen: false);
 
-    customerIdController.text = '122';
-    passwordController.text = 'Harry123';
 
     super.initState();
   }
@@ -32,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: Color(ColorsUtil.appBgColor),
       appBar: AppBar(
         backgroundColor: Color(ColorsUtil.appBgColor),
@@ -73,94 +70,98 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget getFieldData(LoginScreenProvider loginScreenProvider) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        TextFormField(
-          controller: customerIdController,
-          autofocus: false,
-          cursorHeight: 18.0,
-          cursorColor: Colors.white,
-          style: FontUtil.setTextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
-              fontColor: Colors.white),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Color(ColorsUtil.fieldFillColor),
-            contentPadding: EdgeInsets.all(18.0),
-            hintText: 'Customer Id',
-            hintStyle: FontUtil.setTextStyle(
+    return Form(
+      key: _formKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          TextFormField(
+            controller: customerIdController,
+            autofocus: false,
+            cursorHeight: 18.0,
+            cursorColor: Colors.white,
+            validator: (value) =>
+                value.isEmpty ? 'Please Enter Customer Id' : null,
+            style: FontUtil.setTextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
-                fontColor: Colors.white38),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(18.0)),
-              borderSide: BorderSide.none,
+                fontColor: Colors.white),
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color(ColorsUtil.fieldFillColor),
+              contentPadding: EdgeInsets.all(18.0),
+              hintText: 'Customer Id',
+              hintStyle: FontUtil.setTextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                  fontColor: Colors.white38),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(18.0)),
+                borderSide: BorderSide.none,
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 28.0,
-        ),
-        TextFormField(
-          controller: passwordController,
-          autofocus: false,
-          cursorHeight: 18.0,
-          cursorColor: Colors.white,
-          style: FontUtil.setTextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 18.0,
-              fontColor: Colors.white),
-          obscureText: true,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: Color(ColorsUtil.fieldFillColor),
-            contentPadding: EdgeInsets.all(18.0),
-            hintText: 'Password',
-            hintStyle: FontUtil.setTextStyle(
+          SizedBox(
+            height: 28.0,
+          ),
+          TextFormField(
+            controller: passwordController,
+            autofocus: false,
+            cursorHeight: 18.0,
+            cursorColor: Colors.white,
+            validator: (value) =>
+                value.isEmpty ? 'Please Enter Password' : null,
+            style: FontUtil.setTextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
-                fontColor: Colors.white38),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(18)),
-              borderSide: BorderSide.none,
+                fontColor: Colors.white),
+            obscureText: true,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Color(ColorsUtil.fieldFillColor),
+              contentPadding: EdgeInsets.all(18.0),
+              hintText: 'Password',
+              hintStyle: FontUtil.setTextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                  fontColor: Colors.white38),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(18)),
+                borderSide: BorderSide.none,
+              ),
             ),
           ),
-        ),
-        SizedBox(
-          height: 36.0,
-        ),
-        SizedBox(
-          width: MediaQuery.of(context).size.width * 0.50,
-          child: ElevatedButton(
-            onPressed: () {
-              // Navigator.of(context).pushNamed('/home');
-
-              loginScreenProvider.updateLoader();
-
-              callLoginApi(loginScreenProvider);
-            },
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(
-                    Color(ColorsUtil.buttonColor)),
-                padding:
-                    MaterialStateProperty.all<EdgeInsets>(EdgeInsets.all(18.0)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(18.0),
-                        side: BorderSide(color: Colors.red)))),
-            child: !loginScreenProvider.loading
-                ? Text(
-                    'Login',
-                    style: FontUtil.setTextStyle(
-                      fontSize: 18.0,
-                    ),
-                  )
-                : Container(height: 30, child: CircularProgressIndicator()),
+          SizedBox(
+            height: 36.0,
           ),
-        ),
-      ],
+          SizedBox(
+            width: MediaQuery.of(context).size.width * 0.50,
+            child: ElevatedButton(
+              onPressed: () {
+                
+                validateAndSave(loginScreenProvider);
+              },
+              style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all<Color>(
+                      Color(ColorsUtil.buttonColor)),
+                  padding: MaterialStateProperty.all<EdgeInsets>(
+                      EdgeInsets.all(18.0)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                          side: BorderSide(color: Colors.red)))),
+              child: !loginScreenProvider.loading
+                  ? Text(
+                      'Login',
+                      style: FontUtil.setTextStyle(
+                        fontSize: 18.0,
+                      ),
+                    )
+                  : Container(height: 30, child: CircularProgressIndicator()),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -178,6 +179,18 @@ class _LoginScreenState extends State<LoginScreen> {
           arguments: HomeScreenArgs(
               user: loginScreenProvider.loginResposne.user,
               account: loginScreenProvider.loginResposne.account));
+    }
+  }
+
+  void validateAndSave(LoginScreenProvider loginScreenProvider) {
+    final FormState form = _formKey.currentState;
+    if (form.validate()) {
+      FocusScope.of(context).requestFocus(new FocusNode());
+      loginScreenProvider.updateLoader();
+      callLoginApi(loginScreenProvider);
+
+    } else {
+      print('Form is invalid');
     }
   }
 }

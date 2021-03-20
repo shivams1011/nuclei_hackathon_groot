@@ -8,6 +8,7 @@ import 'package:nuclei_hackathon_groot/screen/login_screen/view_model/login_scre
 import 'package:nuclei_hackathon_groot/screen/my_account_screen/my_account_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/save_invest_screen/save_invest_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/transaction_screen/transaction_screen.dart';
+import 'package:nuclei_hackathon_groot/screen/upi_screen/upi_payment_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -39,7 +40,8 @@ class MyApp extends StatelessWidget {
         '/goalOverView':(context) => GoalOverViewScreen(),
         '/goalTracker':(context) => GoalTrackerScreen(),
         '/saveInvest':(context) => SaveInvestScreen(),
-        '/myAccount':(context) => MyAccountScreen()
+        '/myAccount':(context) => MyAccountScreen(),
+        '/payment':(context) => UpiPaymentScreen()
       },
     );
   }

@@ -29,15 +29,17 @@ class _GoalOverViewScreenState extends State<GoalOverViewScreen> {
   @override
   Widget build(BuildContext context) {
     args = ModalRoute.of(context).settings.arguments;
-
-    return Scaffold(
-      key: scaffoldState,
-      appBar: AppBar(
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
+        key: scaffoldState,
+        appBar: AppBar(
+          backgroundColor: Color(ColorsUtil.appBgColor),
+          elevation: 0,
+        ),
         backgroundColor: Color(ColorsUtil.appBgColor),
-        elevation: 0,
+        body: getBodyWidget(context),
       ),
-      backgroundColor: Color(ColorsUtil.appBgColor),
-      body: getBodyWidget(context),
     );
   }
 
@@ -247,5 +249,9 @@ class _GoalOverViewScreenState extends State<GoalOverViewScreen> {
         depositController.text = data;
       }
     });
+  }
+
+  Future<bool> _onBackPressed() {
+     Navigator.of(context).popUntil(ModalRoute.withName("/home"));
   }
 }
