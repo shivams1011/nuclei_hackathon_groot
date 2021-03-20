@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nuclei_hackathon_groot/model/login_response.dart';
@@ -86,20 +88,25 @@ class _HomeScreenState extends State<HomeScreen> {
                     style: FontUtil.setTextStyle(
                         fontSize: 16.0, fontWeight: FontWeight.w700),
                   ),
-                  subtitle: Row(
+                  subtitle: Column(
                     children: [
-                      Radio(
-                        value: 0,
-                        groupValue: _radioValue1,
-                        onChanged: _handleRadioValueChange1,
+                      Row(
+                        children: [
+                          Radio(
+                            value: 0,
+                            groupValue: _radioValue1,
+                            onChanged: _handleRadioValueChange1,
+                          ),
+                          Text('Yes', style: FontUtil.setTextStyle()),
+                          Radio(
+                            value: 1,
+                            groupValue: _radioValue1,
+                            onChanged: _handleRadioValueChange1,
+                          ),
+                          Text('No', style: FontUtil.setTextStyle()),
+                        ],
                       ),
-                      Text('Yes', style: FontUtil.setTextStyle()),
-                      Radio(
-                        value: 1,
-                        groupValue: _radioValue1,
-                        onChanged: _handleRadioValueChange1,
-                      ),
-                      Text('No', style: FontUtil.setTextStyle()),
+                      getUpdateLimit()
                     ],
                   ),
                 ),
@@ -116,6 +123,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
               ListTile(
+                onTap: (){
+                  if (Platform.isAndroid) {
+                    SystemNavigator.pop();
+                  } else if (Platform.isIOS) {
+                    exit(0);
+                  }
+                },
                 title: Text(
                   'Logout',
                   style: FontUtil.setTextStyle(
@@ -189,7 +203,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       child: showTransationCard(
                           cardColor: ColorsUtil.fieldFillColor,
-                          title: 'Create a goal',
+                          title: 'Create a Goal',
                           subTitle: ''),
                     ),
                     InkWell(
@@ -258,13 +272,50 @@ class _HomeScreenState extends State<HomeScreen> {
                 left: 28.0,
               ),
               child: Text(
-                'Make Payment',
+                'Update limit',
                 style: FontUtil.setTextStyle(),
               ),
             ),
             Expanded(child: Container()),
             Padding(
               padding: const EdgeInsets.only(right: 28.0),
+              child: Icon(
+                Icons.arrow_forward,
+                color: Colors.white,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget getUpdateLimit() {
+    return Card(
+      color: Color(ColorsUtil.fieldFillColor),
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(
+          Radius.circular(30),
+        ),
+      ),
+      child: Container(
+        width: MediaQuery.of(context).size.width * 0.90,
+        height: MediaQuery.of(context).size.height * 0.05,
+        child: Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                left: 16.0,
+              ),
+              child: Text(
+                'Update',
+                style: FontUtil.setTextStyle(),
+              ),
+            ),
+            Expanded(child: Container()),
+            Padding(
+              padding: const EdgeInsets.only(right: 8.0),
               child: Icon(
                 Icons.arrow_forward,
                 color: Colors.white,
@@ -411,7 +462,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10.0,
                             ),
                             Text(
-                              'Amount limit:- ₹${args.account.limitPerDay}',
+                              'Account limit:- ₹${args.account.limitPerDay}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: FontUtil.setTextStyle(
@@ -423,7 +474,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10.0,
                             ),
                             Text(
-                              'Amount spent:- ₹${args.account.remainingLimit}',
+                              '(Daily)',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: FontUtil.setTextStyle(

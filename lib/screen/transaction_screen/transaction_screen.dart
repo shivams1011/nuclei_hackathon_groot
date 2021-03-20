@@ -87,6 +87,15 @@ class _TransactionScreenState extends State<TransactionScreen> {
                           ),
                         ],
                       ),
+                      Expanded(child: Container()),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                              '₹15',
+                              style: FontUtil.setTextStyle(
+                                  fontSize: 24.0, fontWeight: FontWeight.w700),
+                            ),
+                      ),
                     ],
                   ),
                   Padding(
@@ -99,12 +108,14 @@ class _TransactionScreenState extends State<TransactionScreen> {
                               fontSize: 12.0, fontWeight: FontWeight.w700),
                         ),
                         Expanded(child: Container()),
-                        Text(
-                          'Success',
-                          style: FontUtil.setTextStyle(
-                              fontSize: 16.0,
-                              fontColor: Colors.green,
-                              fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16.0),
+                          child: Text(
+                            'Success',
+                            style: FontUtil.setTextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
                       ],
                     ),
@@ -113,6 +124,97 @@ class _TransactionScreenState extends State<TransactionScreen> {
               ),
             ),
           ),
+        
+          Card(
+            color: Color(ColorsUtil.accountCardColor),
+            elevation: 5,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(30),
+              ),
+            ),
+            child: Container(
+              width: MediaQuery.of(context).size.width * 0.90,
+              height: MediaQuery.of(context).size.height * 0.12,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 16.0,
+                      ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        child: Image.asset(
+                          ImageUtils.minorImage,
+                          width: 60,
+                          height: 60,
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 16.0,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Send To',
+                            style: FontUtil.setTextStyle(
+                                fontSize: 16.0, fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          Text(
+                            'helloWorld@ybl',
+                            style: FontUtil.setTextStyle(
+                                fontSize: 12.0, fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                      Expanded(child: Container()),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                              '₹150',
+                              style: FontUtil.setTextStyle(
+                                  fontSize: 24.0, fontWeight: FontWeight.w700),
+                            ),
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 16.0, top: 8.0),
+                    child: Row(
+                      children: [
+                        Text(
+                          '19 Mar 2021, 7:15 PM',
+                          style: FontUtil.setTextStyle(
+                              fontSize: 12.0, fontWeight: FontWeight.w700),
+                        ),
+                        Expanded(child: Container()),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 16.0),
+                          child: Text(
+                            'Success',
+                            style: FontUtil.setTextStyle(
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+        
         ],
       ),
     );
