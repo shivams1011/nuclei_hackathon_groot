@@ -74,9 +74,10 @@ class _GoalOverViewScreenState extends State<GoalOverViewScreen> {
                 width: 20.0,
               ),
               Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Goal ${args.goalName}',
+                    'Goal :- ${args.goalName}',
                     style: FontUtil.setTextStyle(
                         fontSize: 18.0, fontWeight: FontWeight.w800),
                   ),

@@ -18,10 +18,13 @@ class CreateGoalScreen extends StatefulWidget {
 class _CreateGoalScreenState extends State<CreateGoalScreen> {
   File _image;
   final picker = ImagePicker();
+  TextEditingController goalNameController = TextEditingController();
+  TextEditingController goalAmountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Color(ColorsUtil.appBgColor),
       appBar: AppBar(
         backgroundColor: Color(ColorsUtil.appBgColor),
@@ -44,6 +47,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
             height: 100,
           ),
           TextFormField(
+            controller: goalNameController,
             autofocus: false,
             cursorHeight: 18.0,
             cursorColor: Colors.white,
@@ -70,6 +74,7 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
             height: 20.0,
           ),
           TextFormField(
+            controller: goalAmountController,
             autofocus: false,
             cursorHeight: 18.0,
             cursorColor: Colors.white,
@@ -97,43 +102,42 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
             ),
           ),
           SizedBox(height: 20),
-          Text(
-            'Select Image from Gallery',
-            style: FontUtil.setTextStyle(
-                fontSize: 24.0, fontWeight: FontWeight.w800),
-          ),
+          _image == null
+              ? Image.asset(
+                  ImageUtils.uploadImage,
+                  height: 100,
+                  width: 100,
+                  color: Colors.white,
+                )
+              : Image.file(
+                  _image,
+                  height: 200,
+                  width: 300,
+                  fit: BoxFit.fitWidth,
+                ),
           SizedBox(height: 20),
           InkWell(
             onTap: () {
-              getImage();
+              // getImage();
+              _showSheet();
             },
-            child: Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 8.0, color: Color(ColorsUtil.fieldFillColor)),
-                  image: DecorationImage(
-                    image: _image == null
-                        ? Image.asset(
-                            ImageUtils.imageGallery,
-                            height: 50,
-                            width: 50,
-                          ).image
-                        : Image.file(_image).image,
-                    fit: _image == null ? null : BoxFit.fill,
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            child: Text(
+              'Upload Image here',
+              style: FontUtil.setTextStyle(
+                  decoration: TextDecoration.underline,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w800),
             ),
           ),
+          SizedBox(height: 20),
           Expanded(child: Container()),
           InkWell(
               onTap: () {
                 Navigator.of(context).pushNamed('/goalOverView',
                     arguments: GoalOverViewScreenArgs(
                         path: _image != null ? _image.path : '',
-                        amount: '2000',
-                        goalName: 'Bicycle'));
+                        amount: goalAmountController.text,
+                        goalName: goalNameController.text));
               },
               child: getBottomButton())
         ],
@@ -143,13 +147,72 @@ class _CreateGoalScreenState extends State<CreateGoalScreen> {
 
   Future getImage() async {
     final pickedFile = await picker.getImage(source: ImageSource.gallery);
-
     setState(() {
       if (pickedFile != null) {
         _image = File(pickedFile.path);
       } else {
         print('No image selected.');
       }
+    });
+  }
+
+  Future getImageCamera() async {
+    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    setState(() {
+      if (pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        print('No image selected.');
+      }
+    });
+  }
+
+  void _showSheet() async {
+    String data = await showModalBottomSheet(
+        context: context,
+        isScrollControlled: false,
+        enableDrag: true,
+        backgroundColor: Color(ColorsUtil.appBgColor),
+        builder: (builder) {
+          return Container(
+            height: MediaQuery.of(context).size.height * 0.20,
+            padding: EdgeInsets.all(24.0),
+            child: Row(
+              children: [
+                SizedBox(
+                  height: 20.0,
+                ),
+                InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      getImage();
+                    },
+                    child: Image.asset(
+                      ImageUtils.photosImage,
+                      height: 80,
+                      width: 80,
+                    )),
+                SizedBox(
+                  width: 20.0,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    getImageCamera();
+                  },
+                  child: Image.asset(
+                    ImageUtils.cameraImage,
+                    height: 80,
+                    width: 80,
+                  ),
+                )
+              ],
+            ),
+          );
+        });
+
+    setState(() {
+      if (data != null) {}
     });
   }
 
