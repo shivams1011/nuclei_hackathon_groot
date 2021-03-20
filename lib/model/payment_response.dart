@@ -1,26 +1,25 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'login_response.g.dart';
+part 'payment_response.g.dart';
 @JsonSerializable()
 class PaymentResponse {
   @JsonKey(name: 'Status')
   final Status status;
   @JsonKey(name: 'amount')
-  final String? amount;
+  final String amount;
   @JsonKey(name: 'remaining_amount')
-  final String? remainingAmount;
+  final String remainingAmount;
   @JsonKey(name: 'message')
-  final String? message;
+  final String message;
   @JsonKey(name: 'order_id')
-  final String? orderId;
+  final String orderId;
   @JsonKey(name: 'upi_id')
-  final String? upiId;
+  final String upiId;
   @JsonKey(name: 'timestamp')
-  final String? timestamp;
-  PaymentResponse(
+  final String timestamp;
+  PaymentResponse({
     this.status,
     this.amount,
     this.remainingAmount,
-    this.amount,
     this.message,
     this.orderId,
     this.upiId,
@@ -32,10 +31,10 @@ class PaymentResponse {
 @JsonSerializable()
 class Status {
   @JsonKey(name: 'message')
-  String? message;
+  String message;
   @JsonKey(name: 'code')
-  int? code;
-  Status(
+  int code;
+  Status({
     this.message,
     this.code
 });

@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:nuclei_hackathon_groot/model/login_response.dart';
 import 'package:nuclei_hackathon_groot/utils/colors_util.dart';
 import 'package:nuclei_hackathon_groot/utils/font_util.dart';
 import 'package:nuclei_hackathon_groot/utils/image_util.dart';
+
+class HomeScreenArgs {
+  final User user;
+  final Account account;
+
+  HomeScreenArgs({this.user, this.account});
+}
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key key}) : super(key: key);
@@ -13,9 +21,15 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isViewDetailClicked = false;
 
+  HomeScreenArgs args;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
+    args = ModalRoute.of(context).settings.arguments;
+
+    print(args.user);
+
     return Scaffold(
         key: _scaffoldKey,
         backgroundColor: Color(ColorsUtil.appBgColor),
@@ -27,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 100,
                 ),
-                Text('Bank App',
+                Text('Wings App',
                     style: FontUtil.setTextStyle(
                         fontSize: 24.0, fontWeight: FontWeight.w700)),
                 SizedBox(
@@ -55,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         fontSize: 16.0, fontWeight: FontWeight.w700),
                   ),
                 ),
-                ListTile(
+                if(args.user.userType == 'G')ListTile(
                   title: Text(
                     'Manage limit',
                     style: FontUtil.setTextStyle(
@@ -99,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     Expanded(
                       child: Text(
-                        'Hi, Shivam Sharma',
+                        'Hi, ${args.user.firstname} ${args.user.lastname}',
                         style: FontUtil.setTextStyle(
                             fontSize: 18.0, fontWeight: FontWeight.w800),
                       ),
@@ -290,7 +304,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16.0, top: 8.0),
                         child: Text(
-                          '*******9090',
+                          args.account.accountNumber,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: FontUtil.setTextStyle(
@@ -333,7 +347,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Balance:- ₹50,000',
+                              'Balance:- ₹${args.account.totalBalance}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: FontUtil.setTextStyle(
@@ -345,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10.0,
                             ),
                             Text(
-                              'Amount limit:- ₹1,000',
+                              'Amount limit:- ₹${args.account.limitPerDay}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: FontUtil.setTextStyle(
@@ -357,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 10.0,
                             ),
                             Text(
-                              'Amount spent:- ₹500',
+                              'Amount spent:- ₹${args.account.remainingLimit}',
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: FontUtil.setTextStyle(

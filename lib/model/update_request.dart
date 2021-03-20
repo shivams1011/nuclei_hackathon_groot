@@ -8,7 +8,7 @@ class UpdateRequest {
   final String limitPerDay;
   @JsonKey(name: 'status')
   final String status;
-  LoginRequest({
+  UpdateRequest({
     this.accountNumber,
     this.limitPerDay,
     this.status

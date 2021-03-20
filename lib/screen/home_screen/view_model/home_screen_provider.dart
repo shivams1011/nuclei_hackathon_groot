@@ -12,9 +12,9 @@ class HomeScreenProvider with ChangeNotifier {
   bool loading = false;
 
   getPostData(context, customerId, password) async {
-    loading = true;
-    updateResponse = await updateLimit(context, accountNumber, limitPerDay, status);
-    loading = false;
+    // loading = true;
+    // updateResponse = await updateLimit(context, accountNumber, limitPerDay, status);
+    // loading = false;
 
     notifyListeners();
   }

@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
-part 'login_response.g.dart';
+part 'update_response.g.dart';
 @JsonSerializable()
 class UpdateResponse {
   @JsonKey(name: 'Status')
   final Status status;
-  LoginResponse(
+  UpdateResponse({
     this.status
   });
   factory UpdateResponse.fromJson(Map<String, dynamic> json) => _$UpdateResponseFromJson(json);
@@ -13,10 +13,10 @@ class UpdateResponse {
 @JsonSerializable()
 class Status {
   @JsonKey(name: 'message')
-  String? message;
+  String message;
   @JsonKey(name: 'code')
-  int? code;
-  Status(
+  int code;
+  Status({
     this.message,
     this.code
 });

@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 part 'login_response.g.dart';
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true, createToJson: true)
 class LoginResponse {
   @JsonKey(name: 'Status')
   final Status status;
@@ -8,7 +8,7 @@ class LoginResponse {
   final Account account;
   @JsonKey(name: 'user')
   final User user;
-  LoginResponse(
+  LoginResponse({
     this.status,
     this.account,
     this.user
@@ -19,10 +19,10 @@ class LoginResponse {
 @JsonSerializable()
 class Status {
   @JsonKey(name: 'message')
-  String? message;
+  String message;
   @JsonKey(name: 'code')
-  int? code;
-  Status(
+  int code;
+  Status({
     this.message,
     this.code
 });
@@ -43,7 +43,7 @@ class Account {
   String remainingLimit;
   @JsonKey(name: 'pin')
   String pin;
-  Account(
+  Account({
     this.accountNumber,
     this.totalBalance,
     this.limitPerDay,
@@ -54,10 +54,10 @@ class Account {
         factory Account.fromJson(Map<String, dynamic> json) => _$AccountFromJson(json);
         Map<String, dynamic> toJson() => _$AccountToJson(this);
         }
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class User {
   @JsonKey(name: 'custId')
-  String custId;
+  int custId;
   @JsonKey(name: 'firstname')
   String firstname;
   @JsonKey(name: 'lastname')
@@ -68,7 +68,7 @@ class User {
   String acctNumber;
   @JsonKey(name: 'userType')
   String userType;
-  User(
+  User({
     this.custId,
     this.firstname,
     this.lastname,

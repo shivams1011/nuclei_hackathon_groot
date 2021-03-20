@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:nuclei_hackathon_groot/model/login_response.dart';
+import 'package:nuclei_hackathon_groot/screen/home_screen/home_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/login_screen/view_model/login_screen_provider.dart';
 import 'package:nuclei_hackathon_groot/utils/colors_util.dart';
 import 'package:nuclei_hackathon_groot/utils/font_util.dart';
@@ -18,6 +22,10 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     Provider.of<LoginScreenProvider>(context, listen: false);
+
+    customerIdController.text = '122';
+    passwordController.text = 'Harry123';
+
     super.initState();
   }
 
@@ -127,13 +135,11 @@ class _LoginScreenState extends State<LoginScreen> {
           width: MediaQuery.of(context).size.width * 0.50,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed('/home');
+              // Navigator.of(context).pushNamed('/home');
 
-              print(customerIdController.text);
-              print(passwordController.text);
+              loginScreenProvider.updateLoader();
 
-              loginScreenProvider.getPostData(
-                  context, customerIdController.text.toString(), passwordController.text);
+              callLoginApi(loginScreenProvider);
             },
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(
@@ -144,15 +150,34 @@ class _LoginScreenState extends State<LoginScreen> {
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(18.0),
                         side: BorderSide(color: Colors.red)))),
-            child: Text(
-              'Login',
-              style: FontUtil.setTextStyle(
-                fontSize: 18.0,
-              ),
-            ),
+            child: !loginScreenProvider.loading
+                ? Text(
+                    'Login',
+                    style: FontUtil.setTextStyle(
+                      fontSize: 18.0,
+                    ),
+                  )
+                : Container(height: 30, child: CircularProgressIndicator()),
           ),
         ),
       ],
     );
+  }
+
+  void callLoginApi(LoginScreenProvider loginScreenProvider) async {
+    await loginScreenProvider.getPostData(
+        context, customerIdController.text.toString(), passwordController.text);
+
+    if (loginScreenProvider.loginSuccess) {
+      Navigator.of(context).pop();
+
+      // User user = loginScreenProvider.loginResposne.user;
+      print('----------');
+      print(loginScreenProvider.loginResposne);
+      Navigator.of(context).pushNamed('/home',
+          arguments: HomeScreenArgs(
+              user: loginScreenProvider.loginResposne.user,
+              account: loginScreenProvider.loginResposne.account));
+    }
   }
 }

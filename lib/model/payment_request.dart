@@ -3,18 +3,18 @@ part 'payment_request.g.dart';
 @JsonSerializable()
 class PaymentRequest {
   @JsonKey(name: 'customerId')
-  final String? customerId;
+  final String customerId;
   @JsonKey(name: 'userType')
-  final String? userType;
+  final String userType;
   @JsonKey(name: 'pin')
-  final String? pin;
+  final String pin;
   @JsonKey(name: 'amount')
-  final String? amount;
+  final String amount;
   @JsonKey(name: 'upiId')
-  final String? upiId;
-  LoginResponse(
+  final String upiId;
+  PaymentRequest({
     this.customerId,
-    this.usertype,
+    this.userType,
     this.pin,
     this.amount,
     this.upiId
