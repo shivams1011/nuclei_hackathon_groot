@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nuclei_hackathon_groot/screen/login_screen/view_model/login_screen_provider.dart';
 import 'package:nuclei_hackathon_groot/utils/colors_util.dart';
 import 'package:nuclei_hackathon_groot/utils/font_util.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -10,6 +12,15 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController customerIdController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void initState() {
+    Provider.of<LoginScreenProvider>(context, listen: false);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +29,13 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Color(ColorsUtil.appBgColor),
         elevation: 0,
       ),
-      body: getBodyWidget(),
+
+      body: ChangeNotifierProvider<LoginScreenProvider>(
+        create: (context) => LoginScreenProvider(),
+        child: getBodyWidget(),
+      ),
+
+      // body: getBodyWidget(),
     );
   }
 
@@ -37,17 +54,22 @@ class _LoginScreenState extends State<LoginScreen> {
           SizedBox(
             height: 50.0,
           ),
-          getFieldData()
+          Consumer<LoginScreenProvider>(
+              builder: (context, LoginScreenProvider myprovide, child) {
+            return getFieldData(myprovide);
+          })
+          // getFieldData()
         ],
       ),
     );
   }
 
-  Widget getFieldData() {
+  Widget getFieldData(LoginScreenProvider loginScreenProvider) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         TextFormField(
+          controller: customerIdController,
           autofocus: false,
           cursorHeight: 18.0,
           cursorColor: Colors.white,
@@ -74,6 +96,7 @@ class _LoginScreenState extends State<LoginScreen> {
           height: 28.0,
         ),
         TextFormField(
+          controller: passwordController,
           autofocus: false,
           cursorHeight: 18.0,
           cursorColor: Colors.white,
@@ -104,7 +127,13 @@ class _LoginScreenState extends State<LoginScreen> {
           width: MediaQuery.of(context).size.width * 0.50,
           child: ElevatedButton(
             onPressed: () {
-              Navigator.of(context).pushNamed('/home');
+              // Navigator.of(context).pushNamed('/home');
+
+              print(customerIdController.text);
+              print(passwordController.text);
+
+              loginScreenProvider.getPostData(
+                  context, customerIdController.text.toString(), passwordController.text);
             },
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(

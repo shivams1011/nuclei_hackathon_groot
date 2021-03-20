@@ -4,13 +4,23 @@ import 'package:nuclei_hackathon_groot/screen/goal_overview_screen/goal_overview
 import 'package:nuclei_hackathon_groot/screen/goal_tracker_screen/goal_tracker_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/home_screen/home_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/login_screen/login_screen.dart';
+import 'package:nuclei_hackathon_groot/screen/login_screen/view_model/login_screen_provider.dart';
 import 'package:nuclei_hackathon_groot/screen/my_account_screen/my_account_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/save_invest_screen/save_invest_screen.dart';
 import 'package:nuclei_hackathon_groot/screen/transaction_screen/transaction_screen.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/single_child_widget.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MultiProvider
+  (
+    providers: providers,
+    child: MyApp()));
 }
+
+List<ListenableProvider> providers = [
+  ChangeNotifierProvider<LoginScreenProvider>(create: (_) => LoginScreenProvider()),
+];
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
